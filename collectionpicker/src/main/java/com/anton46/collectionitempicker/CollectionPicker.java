@@ -38,6 +38,7 @@ public class CollectionPicker extends LinearLayout {
     private int textPaddingLeft = 8;
     private int textPaddingRight = 8;
     private int textPaddingTop = 5;
+    private int textSize = 24;
     private int texPaddingBottom = 5;
     private int mAddIcon = android.R.drawable.ic_menu_add;
     private int mCancelIcon = android.R.drawable.ic_menu_close_clear_cancel;
@@ -46,6 +47,7 @@ public class CollectionPicker extends LinearLayout {
     private int mTextColor = android.R.color.white;
     private int mRadius = 10;
     private boolean mInitialized;
+    private boolean mCenterHorizontal;
 
     private boolean simplifiedTags;
 
@@ -78,6 +80,9 @@ public class CollectionPicker extends LinearLayout {
         this.textPaddingTop = (int) typeArray
                 .getDimension(R.styleable.CollectionPicker_cp_textPaddingTop,
                         Utils.dpToPx(this.getContext(), textPaddingTop));
+        this.textPaddingTop = (int) typeArray
+                .getDimension(R.styleable.CollectionPicker_cp_textSize,
+                        Utils.dpToPx(this.getContext(), textSize));
         this.texPaddingBottom = (int) typeArray
                 .getDimension(R.styleable.CollectionPicker_cp_textPaddingBottom,
                         Utils.dpToPx(this.getContext(),
@@ -97,10 +102,15 @@ public class CollectionPicker extends LinearLayout {
                 .getColor(R.styleable.CollectionPicker_cp_itemTextColor, mTextColor);
         this.simplifiedTags = typeArray
                 .getBoolean(R.styleable.CollectionPicker_cp_simplified, false);
+        this.mCenterHorizontal = typeArray
+                .getBoolean(R.styleable.CollectionPicker_cp_centerHorizontal, false);
         typeArray.recycle();
 
         setOrientation(VERTICAL);
-        setGravity(Gravity.CENTER_HORIZONTAL);
+
+        if (this.mCenterHorizontal) {
+          setGravity(Gravity.CENTER_HORIZONTAL);
+        }
 
         mViewTreeObserver = getViewTreeObserver();
         mViewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -182,6 +192,7 @@ public class CollectionPicker extends LinearLayout {
             itemTextView.setPadding(textPaddingLeft, textPaddingTop, textPaddingRight,
                     texPaddingBottom);
             itemTextView.setTextColor(getResources().getColor(mTextColor));
+            itemTextView.setTextSize(textSize);
 
             float itemWidth = itemTextView.getPaint().measureText(item.text) + textPaddingLeft
                     + textPaddingRight;
