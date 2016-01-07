@@ -14,6 +14,6 @@
         <attr name="cp_textPaddingBottom" format="dimension" />
         <attr name="cp_simplified" format="boolean" />
         <attr name="cp_textSize" format="dimension" />
-        <attr name="cp_centerHorizontal" format="boolean" />
+        <attr name="cp_center" format="boolean" />
     </declare-styleable>
 </resources>

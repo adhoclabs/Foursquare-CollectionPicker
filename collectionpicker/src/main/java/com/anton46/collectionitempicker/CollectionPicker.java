@@ -38,7 +38,7 @@ public class CollectionPicker extends LinearLayout {
     private int textPaddingLeft = 8;
     private int textPaddingRight = 8;
     private int textPaddingTop = 5;
-    private int textSize = 24;
+    private int textSize = 12;
     private int texPaddingBottom = 5;
     private int mAddIcon = android.R.drawable.ic_menu_add;
     private int mCancelIcon = android.R.drawable.ic_menu_close_clear_cancel;
@@ -47,7 +47,7 @@ public class CollectionPicker extends LinearLayout {
     private int mTextColor = android.R.color.white;
     private int mRadius = 10;
     private boolean mInitialized;
-    private boolean mCenterHorizontal;
+    private boolean mCenter;
 
     private boolean simplifiedTags;
 
@@ -80,7 +80,7 @@ public class CollectionPicker extends LinearLayout {
         this.textPaddingTop = (int) typeArray
                 .getDimension(R.styleable.CollectionPicker_cp_textPaddingTop,
                         Utils.dpToPx(this.getContext(), textPaddingTop));
-        this.textPaddingTop = (int) typeArray
+        this.textSize = (int) typeArray
                 .getDimension(R.styleable.CollectionPicker_cp_textSize,
                         Utils.dpToPx(this.getContext(), textSize));
         this.texPaddingBottom = (int) typeArray
@@ -102,15 +102,11 @@ public class CollectionPicker extends LinearLayout {
                 .getColor(R.styleable.CollectionPicker_cp_itemTextColor, mTextColor);
         this.simplifiedTags = typeArray
                 .getBoolean(R.styleable.CollectionPicker_cp_simplified, false);
-        this.mCenterHorizontal = typeArray
-                .getBoolean(R.styleable.CollectionPicker_cp_centerHorizontal, false);
+        this.mCenter = typeArray
+                .getBoolean(R.styleable.CollectionPicker_cp_center, false);
         typeArray.recycle();
 
         setOrientation(VERTICAL);
-
-        if (this.mCenterHorizontal) {
-          setGravity(Gravity.CENTER_HORIZONTAL);
-        }
 
         mViewTreeObserver = getViewTreeObserver();
         mViewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -206,8 +202,7 @@ public class CollectionPicker extends LinearLayout {
                 indicatorView.setVisibility(View.GONE);
             }
 
-            itemWidth += Utils.dpToPx(getContext(), 30) + textPaddingLeft
-                    + textPaddingRight;
+            itemWidth += Utils.dpToPx(getContext(), 10);
 
             if (mWidth <= totalPadding + itemWidth + Utils
                     .dpToPx(this.getContext(), LAYOUT_WIDTH_OFFSET)) {
@@ -261,7 +256,9 @@ public class CollectionPicker extends LinearLayout {
             int position) {
         if (mRow == null || newLine) {
             mRow = new LinearLayout(getContext());
-            mRow.setGravity(Gravity.CENTER);
+            if (mCenter) {
+              mRow.setGravity(Gravity.CENTER);
+            }
             mRow.setOrientation(HORIZONTAL);
 
             LayoutParams params = new LayoutParams(
