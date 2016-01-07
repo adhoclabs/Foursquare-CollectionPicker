@@ -198,13 +198,15 @@ public class CollectionPicker extends LinearLayout {
             indicatorView.setBackgroundResource(getItemIcon(item.isSelected));
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) indicatorView.getLayoutParams();
             layoutParams.rightMargin = textPaddingRight;
-            layoutParams.leftMargin = textPaddingLeft;
 
             if (simplifiedTags) {
                 indicatorView.setVisibility(View.GONE);
             }
 
-            itemWidth += Utils.dpToPx(getContext(), 10);
+            // add in the width of the image
+            itemWidth += indicatorView.getMeasuredWidth() + textPaddingRight;
+            // add in some leeway
+            itemWidth += Utils.dpToPx(getContext(), 20);
 
             if (mWidth <= totalPadding + itemWidth + Utils
                     .dpToPx(this.getContext(), LAYOUT_WIDTH_OFFSET)) {
