@@ -196,7 +196,9 @@ public class CollectionPicker extends LinearLayout {
             // if (!simplifiedTags) {
             ImageView indicatorView = (ImageView) itemLayout.findViewById(R.id.item_icon);
             indicatorView.setBackgroundResource(getItemIcon(item.isSelected));
-            indicatorView.setPadding(0, textPaddingTop, textPaddingRight, texPaddingBottom);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) indicatorView.getLayoutParams();
+            layoutParams.rightMargin = textPaddingRight;
+            layoutParams.leftMargin = textPaddingLeft;
 
             if (simplifiedTags) {
                 indicatorView.setVisibility(View.GONE);
