@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -118,6 +119,14 @@ public class CollectionPicker extends LinearLayout {
                 }
             }
         });
+    }
+
+    public void setLayoutBackgroundColorNormal(@ColorRes int colorRes) {
+        this.mLayoutBackgroundColorNormal = colorRes;
+    }
+
+    public void setLayoutBackgroundColorPressed(@ColorRes int colorRes) {
+        this.mLayoutBackgroundColorPressed = colorRes;
     }
 
     @Override
