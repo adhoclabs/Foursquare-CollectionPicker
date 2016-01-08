@@ -129,6 +129,10 @@ public class CollectionPicker extends LinearLayout {
         this.mLayoutBackgroundColorPressed = colorRes;
     }
 
+    public void setIsSimplified(boolean isSimplified) {
+        this.simplifiedTags = isSimplified;
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         mWidth = w;
